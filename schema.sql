@@ -10,4 +10,4 @@ CREATE TABLE animals (
     weight_kg DECIMAL,
     PRIMARY KEY(id)
 );
-ALTER TABLE animals ADD COLUMN species VARCHAR
+ALTER TABLE animals ADD COLUMN species VARCHAR(30);
