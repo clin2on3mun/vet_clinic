@@ -22,7 +22,7 @@ UPDATE animals SET species='pokemon'
 WHERE species is NULL;
 SELECT * FROM animals;
 COMMIT;
-
+SELECT * FROM animals;
 BEGIN;
 DELETE FROM animals;
 SELECT * FROM animals;
@@ -44,5 +44,6 @@ SELECT COUNT(*) as Never_escaped from animals WHERE escape_attempts=0;
 SELECT AVG(weight_kg) as average_weight FROM animals;
 SELECT neutered,MAX(escape_attempts) FROM animals GROUP BY neutered;
 SELECT species,MIN(weight_kg) as minimum_weight, MAX(weight_kg) as maximum_weight FROM animals GROUP BY species;
-SELECT species, AVG(escape_attempts) as average_escape_attempts FROM animals WHERE date_of_birth BETWEEN 'jan-1-1990' AND 'jan-1-2000'
+SELECT species, AVG(escape_attempts) as average_escape_attempts FROM animals WHERE date_of_birth BETWEEN '1990-01-01' AND '2000-01-01'
 GROUP BY species;
+
