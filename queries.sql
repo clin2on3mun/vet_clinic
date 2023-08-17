@@ -81,4 +81,62 @@ WHERE owners.full_name= 'Dean Winchester' AND escape_attempts is NULL;
 SELECT owners.full_name, COUNT(animals.id) from animals
 JOIN owners
 ON owners.id = owner_id
-GROUP BY ownerS.full_name;
+GROUP BY owners.full_name
+ORDER BY COUNT DESC
+LIMIT 1;
+
+SELECT animals.name from animals
+JOIN visits v ON animals.id = v.animal_id
+JOIN vets vet ON vet.id = v.vet_id
+WHERE vet.name = 'William Tatcher'
+ORDER BY v.date_of_visit DESC
+LIMIT 1;
+
+SELECT COUNT(*) as animals from animals
+JOIN visits v ON animals.id = v.animal_id
+JOIN vets vet ON vet.id = v.vet_id
+WHERE vet.name = 'Stephanie Mendez';
+
+SELECT vets.name, species.name From vets
+FULL OUTER JOIN specializations s ON vets.id = s.vet
+FULL OUTER JOIN species ON s.species = species.id;
+
+SELECT animals.name, v.date_of_visit From animals
+JOIN VISITS v ON animals.id = v.animal_id
+JOIN vets vet ON vet.id = v.vet_id
+WHERE vet.name = 'Stephanie Mendez' AND V.date_of_visit BETWEEN 'APR-1-2020' AND 'AUG-10-2020';
+
+SELECT animals.id animal_id, animals.name, COUNT(v.id) as visits_count FROM animals
+JOIN visits v ON animals.id = v.animal_id
+GROUP BY animals.id, animals.name
+ORDER BY visits_count DESC
+LIMIT 1;
+
+SELECT vets.name,animals.name animal_name, v.date_of_visit FROM vets
+JOIN visits v ON v.vet_id = vets.id
+JOIN animals ON animals.id = v.animal_id
+WHERE vets.name = 'Maisy Smith'
+ORDER BY v.date_of_visit ASC
+LIMIT 1;
+
+SELECT vets.name vet_name, animals.name animal_name, v.date_of_visit FROM vets 
+JOIN visits v ON v.vet_id = vets.id
+JOIN animals ON v.animal_id = animals.id
+ORDER BY v.date_of_visit DESC
+LIMIT 1;
+
+SELECT COUNT(*) AS num_visit_no_unspecialized  FROM visits
+JOIN vets vet ON vet.id = visits.vet_id
+JOIN animals  ON animals.id = visits.animal_id
+LEFT JOIN specializations s ON s.vet = vet.id AND animals.species_id = s.species
+WHERE s.vet is NULL
+
+SELECT species.name AS Recommended_speciality,  COUNT(*) FROM visits v 
+JOIN vets vet ON vet.id = v.vet_id
+JOIN animals ON animals.id = v.animal_id
+JOIN species ON species.id = animals.species_id
+WHERE vet.name = 'Maisy Smith'
+GROUP BY species.name
+LIMIT 1;
+
+
